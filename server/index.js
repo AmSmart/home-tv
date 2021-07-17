@@ -3,7 +3,7 @@ const express = require("express");
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 const app = express();
 const httpServer = require("http").createServer(app);
 const io = require('socket.io')(httpServer);
@@ -13,6 +13,7 @@ const disk = require('diskusage');
 const PORT = process.env.PORT || 3001;
 const allowedFileTypes = '.mp4,.mp3,.wav,.avi,.mkv,.ogg,.flv';
 const uploadsDirectoryPath = path.resolve(__dirname, './uploads');
+const dht = spawn('python3', ['dht.py']);
 
 async function getFreeSpace(path) {
     try {
@@ -71,8 +72,7 @@ app.post("/api/media", async (req, res) => {
 });
 
 app.post('/api/shutdown', (req, res) => {
-    const { exec } = require('child_process');
-    const ls = exec('sudo shutdown -h now', function (error, stdout, stderr) {
+    const shutdown = exec('sudo shutdown -h now', function (error, stdout, stderr) {
     });
     res.send();
 });
@@ -116,5 +116,3 @@ app.get('*', (req, res) => {
 httpServer.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
-
-const python = spawn('python3', ['dht.py']);
