@@ -24,9 +24,9 @@ prompt.get([{
 }], function (err, result) {
     if (result.response.toLowerCase() == 'y') {
         console.log('Loading...');
-        var fork = require('child_process').fork;
-        var child = fork('/home/pi/kiosk.sh');
-        process.exit();
+        const { spawn } = require("child_process");
+        const start = spawn("/bin/bash", ["/home/pi/home-tv/kiosk.sh"]);
+        process.exit();        
     }
     else {
         require('readline')
