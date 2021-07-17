@@ -26,7 +26,6 @@ prompt.get([{
         console.log('Loading...');
         const { spawn } = require("child_process");
         const start = spawn("/bin/bash", ["/home/pi/home-tv/kiosk.sh"]);
-        process.exit();        
     }
     else {
         require('readline')
