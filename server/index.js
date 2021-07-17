@@ -72,7 +72,7 @@ app.post("/api/media", async (req, res) => {
 
 app.post('/api/shutdown', (req, res) => {
     const { exec } = require('child_process');
-    const ls = exec('shutdown -h now', function (error, stdout, stderr) {
+    const ls = exec('sudo shutdown -h now', function (error, stdout, stderr) {
     });
     res.send();
 });
