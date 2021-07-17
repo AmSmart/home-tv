@@ -70,6 +70,13 @@ app.post("/api/media", async (req, res) => {
     });
 });
 
+app.post('/api/shutdown', (req, res) => {
+    const { exec } = require('child_process');
+    const ls = exec('shutdown -h now', function (error, stdout, stderr) {
+    });
+    res.send();
+});
+
 app.delete('/api/media', (req, res) => {
     let fileName = req.query.file;
     let filePath = path.resolve(__dirname, `./uploads/${fileName}`)
